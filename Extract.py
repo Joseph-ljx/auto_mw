@@ -9,6 +9,7 @@ def extract_information(message, cid_dict):
     my_time = []
     reason = ""
     cid = []
+    save_email_flag = False
     # Lumen
     if sender == 'No-Reply@Lumen.com':
         # print(body)
@@ -19,11 +20,16 @@ def extract_information(message, cid_dict):
             if "Greenwich Mean Time" in content:
                 my_time.append(content.replace("\t", ""))
                 # print(my_time)
-            if "CHINA TELECOM (AMERICAS) CORPORATION" in content or "CHINA TELECOM AMERICAS" in content:
+            if ("CHINA TELECOM (AMERICAS) CORPORATION" in content or "CHINA TELECOM AMERICAS" in content
+                    or "CHINA TELECOM (USA) CORPORATION" in content):
                 cur = content.split("\t")
                 cid.append(cur[1].replace(" ", ""))
                 # print(cid)
+    # if sender == "ZAYO"
+    # if sender == "Verizon"
+    # if sender == "Arelion"
 
+        # Format the important information
         if cid:
             print("=" * 50)
             print(f"Subject: {subject}")
@@ -41,10 +47,9 @@ def extract_information(message, cid_dict):
                         w.write(all_info)
                         w.write(f"CT CID: {cid_dict[cur_cid]}")
                         w.write("\n\n")
-                        return True
+                        save_email_flag = True
                     if cur_cid not in cid_dict:
                         w.write(all_info)
                         w.write(f"Customer's CID or not in the database. Check manually!")
                         w.write("\n\n")
-                        return False
-    return False
+    return save_email_flag
