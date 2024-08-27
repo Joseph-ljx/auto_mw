@@ -14,7 +14,7 @@ def extract_information(message, cid_dict):
     if sender == 'No-Reply@Lumen.com':
         # print(body)
         for content in body:
-            if "Lumen intend" in content or "Lumen will" in content:
+            if "Lumen intend" in content or "Lumen will" in content or "Lumen's 3rd party" in content:
                 reason = content
                 # print(reason)
             if "Greenwich Mean Time" in content:

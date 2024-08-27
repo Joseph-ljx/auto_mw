@@ -7,8 +7,8 @@ from Extract import extract_information
 from read_csv import read_csv
 
 # Set the filter start time and end time
-start_date = datetime(2024, 8, 27, 9, 0)  # Start date (YYYY, MM, DD)
-end_date = datetime(2024, 8, 27, 14, 36)
+start_date = datetime(2024, 8, 27, 22, 0)  # Start date (YYYY, MM, DD)
+end_date = datetime(2024, 8, 28, 7, 0)
 folder_name = "MW"
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
