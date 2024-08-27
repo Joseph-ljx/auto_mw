@@ -1,0 +1,18 @@
+Subject: Lumen Scheduled Maintenance #: 29948079, Scheduled
+Reason for MW: Lumen intends to carry out internal maintenance within its network. This has been designated as ESSENTIAL. The nature of this work is to repair/replace fiber and is required in order to avoid unplanned outages from damages related to a previous fiber incident. 
+Vendor CID is BBXM1483
+Time is ['2024-09-11 04:00 GMT (Greenwich Mean Time) 2024-09-11 08:00 GMT (Greenwich Mean Time) ', '2024-09-12 04:00 GMT (Greenwich Mean Time) 2024-09-12 08:00 GMT (Greenwich Mean Time) ']
+CT CID: ['LAX/CTUSA-MIA/CTUSA 64V4C001(P)']
+
+Subject: Lumen Scheduled Maintenance #: 29791515, Modification
+Reason for MW: Lumen will implement scheduled maintenance as part of a large-scale project to upgrade code on the IP network. This maintenance activity is one of several maintenances taking place across various locations in multiple regions and is considered ESSENTIAL. The upgrade will promote reliability enhancements, correct issues that could lead to future unplanned outages and provide the best possible support on the Lumen network. 
+Vendor CID is 1J/KEFN/004272/LVLC
+Time is ['2024-09-17 07:00 GMT (Greenwich Mean Time) 2024-09-17 13:00 GMT (Greenwich Mean Time) ']
+Customer's CID or not in the database. Check manually!
+
+Subject: Lumen Scheduled Maintenance #: 29975515, Scheduled
+Reason for MW: Lumen intends to carry out internal maintenance within its network. This has been designated as ESSENTIAL. The nature of this work is to repair/replace fiber and is required in order to avoid unplanned outages from damages related to natural causes. 
+Vendor CID is BBXM1481
+Time is ['2024-09-19 04:00 GMT (Greenwich Mean Time) 2024-09-19 10:00 GMT (Greenwich Mean Time) ', '2024-09-20 04:00 GMT (Greenwich Mean Time) 2024-09-20 10:00 GMT (Greenwich Mean Time) ']
+CT CID: ['LAX/CTUSA-MIA/CTUSA 64V4C001(W)']
+
