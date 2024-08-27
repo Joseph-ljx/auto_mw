@@ -7,13 +7,14 @@ from Extract import extract_information
 from read_csv import read_csv
 
 # Set the filter start time and end time
-start_date = datetime(2024, 8, 23, 11, 0)  # Start date (YYYY, MM, DD)
-end_date = datetime(2024, 8, 26, 11, 20)
+start_date = datetime(2024, 8, 27, 9, 0)  # Start date (YYYY, MM, DD)
+end_date = datetime(2024, 8, 27, 14, 36)
 folder_name = "MW"
 
 outlook = Dispatch("Outlook.Application").GetNamespace("MAPI")
 filtered_messages = []
 
+# Filter email base on the start time and end time
 for account in outlook.Folders:
     print(f"Account: {account.Name}")
     if account.Name == 'yuxiwang@ctamericas.com':
@@ -50,8 +51,12 @@ for message in filtered_messages:
     if sender not in sender_list:
         continue
 
+    # CTA backbone database
     cid_dict = read_csv()
+    # Extract information
     backbone = extract_information(message, cid_dict)
+
+    # Backbone circuit, save the email as txt
     if backbone:
         cleaned_text = re.sub(r'[^\w\s]', ' ', subject)
         filename = cleaned_text + '.txt'
