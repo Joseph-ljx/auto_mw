@@ -10,6 +10,8 @@ from read_csv import read_csv
 start_date = datetime(2024, 8, 27, 9, 0)  # Start date (YYYY, MM, DD)
 end_date = datetime(2024, 8, 27, 14, 36)
 folder_name = "MW"
+now = datetime.now()
+year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
 
 outlook = Dispatch("Outlook.Application").GetNamespace("MAPI")
 filtered_messages = []
@@ -60,8 +62,13 @@ for message in filtered_messages:
     if backbone:
         cleaned_text = re.sub(r'[^\w\s]', ' ', subject)
         filename = cleaned_text + '.txt'
+        # Create dir
+        dir_name = f"Email_Dir_{year}-{month}-{day}"
+        if not os.path.exists(dir_name):
+            os.mkdir(dir_name)
+        file_path = '\\'.join((dir_name, filename))
         # Write email details to the file
-        with open(filename, 'w', encoding='utf-8') as file:
+        with open(file_path, 'w', encoding='utf-8') as file:
             # file.write(f"Subject: {subject}\n")
             # file.write(f"Sender: {sender}\n")
             # file.write("\n--- Email Body ---\n\n")
