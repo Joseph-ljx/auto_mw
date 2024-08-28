@@ -18,7 +18,7 @@ def read_csv():
             continue
         CID_dict[content[4]].append(content[0])
         if content[7]:
-            CID_dict[content[4]].append(content[7])
+            CID_dict[content[4]].append("alternative: " + content[7])
     # val[0] main CID, val[1] secondary CID
     return CID_dict
 
