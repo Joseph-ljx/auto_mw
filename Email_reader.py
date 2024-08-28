@@ -47,10 +47,11 @@ for message in filtered_messages:
         continue
     if "China Telecom (Europe) Limited" in subject and sender == 'nmc':
         continue
-    if "Postponed" in subject:
+    # Lumen related
+    if (any(word in subject for word in ["Postponed", "Cancelled", "Work Ended", "Work Started"])
+            and sender == 'No-Reply@Lumen.com'):
         continue
-    if "Cancelled" in subject:
-        continue
+
     # ZAYO related
     if (any(word in subject for word in ["COMPLETED", "UPDATE", "Update", "Verification", "START"])
             and sender == 'MR Zayo'):
