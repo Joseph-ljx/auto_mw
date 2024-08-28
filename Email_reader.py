@@ -7,8 +7,8 @@ from Extract import extract_information
 from read_csv import read_csv
 
 # Set the filter start time and end time
-start_date = datetime(2024, 8, 27, 22, 0)  # Start date (YYYY, MM, DD)
-end_date = datetime(2024, 8, 28, 7, 0)
+start_date = datetime(2024, 8, 26, 0, 0)  # Start date (YYYY, MM, DD)
+end_date = datetime(2024, 8, 27, 17, 0)
 folder_name = "MW"
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
@@ -40,6 +40,7 @@ for message in filtered_messages:
     sender = message.SenderName
     received_time = message.ReceivedTime
     body = message.body
+    # print(sender)
     # print(f"Subject: {subject}")
     # Skip some email
     if subject in subject_list:
@@ -50,6 +51,11 @@ for message in filtered_messages:
         continue
     if "Cancelled" in subject:
         continue
+    # ZAYO related
+    if (any(word in subject for word in ["COMPLETED", "UPDATE", "Update", "Verification", "START"])
+            and sender == 'MR Zayo'):
+        continue
+
     if sender not in sender_list:
         continue
 
@@ -62,6 +68,7 @@ for message in filtered_messages:
     if backbone:
         cleaned_text = re.sub(r'[^\w\s]', ' ', subject)
         filename = cleaned_text + '.txt'
+        filename = filename.replace("  ", " ")
         # Create dir
         dir_name = f"Email_Dir_{year}-{month}-{day}"
         if not os.path.exists(dir_name):
