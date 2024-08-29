@@ -9,14 +9,14 @@ from Extract import extract_information
 from read_csv import read_csv
 
 # Set the filter start time, end time, folder_name, account_name
-# start_date, end_date, folder_name, account_name = input_param()
+start_date, end_date, folder_name, account_name = input_param()
 
 ##############################################################################
-# For test
-start_date = datetime(2024, 8, 6, 2, 30)
-end_date = datetime(2024, 8, 6, 3, 0)
-folder_name = "MW"
-account_name = "yuxiwang@ctamericas.com"
+# # For test
+# start_date = datetime(2024, 8, 6, 2, 30)
+# end_date = datetime(2024, 8, 6, 3, 0)
+# folder_name = "MW"
+# account_name = "yuxiwang@ctamericas.com"
 ###############################################################################
 
 now = datetime.now()
@@ -95,4 +95,3 @@ for message in filtered_messages:
             # file.write("\n--- Email Body ---\n\n")
             file.write(body)
         print(f"Email saved to {filename}")
-
