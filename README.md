@@ -7,9 +7,9 @@ Environment:
    ```
    Remember restart the computer after pip install.
 
-Use:
-IDE:
-Run Email_reader.py
+Use:\
+IDE:\
+Run Email_reader.py\
 CLI:
 1. cd to the absolute path
 2. Run the main function
