@@ -11,7 +11,7 @@ start_date = datetime(2024, 8, 28, 22, 0)  # Start date (YYYY, MM, DD)
 end_date = datetime(2024, 8, 29, 7, 10)
 folder_name = "MW"
 account_name = input("Please enter your personal CTA email address: \n")
-print(account_name)
+# print(account_name)
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
 
