@@ -7,9 +7,11 @@ from Extract import extract_information
 from read_csv import read_csv
 
 # Set the filter start time and end time
-start_date = datetime(2024, 8, 26, 0, 0)  # Start date (YYYY, MM, DD)
-end_date = datetime(2024, 8, 27, 17, 0)
+start_date = datetime(2024, 8, 28, 22, 0)  # Start date (YYYY, MM, DD)
+end_date = datetime(2024, 8, 29, 7, 10)
 folder_name = "MW"
+account_name = input("Please enter your personal CTA email address: \n")
+print(account_name)
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
 
@@ -19,7 +21,7 @@ filtered_messages = []
 # Filter email base on the start time and end time
 for account in outlook.Folders:
     print(f"Account: {account.Name}")
-    if account.Name == 'yuxiwang@ctamericas.com':
+    if account.Name == account_name:
 
         inbox = account.Folders[folder_name]
         print(f"Folder: {inbox.Name}")
