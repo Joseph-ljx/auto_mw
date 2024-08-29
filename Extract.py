@@ -1,6 +1,7 @@
 from datetime import datetime
 from Lumen_policy import lumen
 from Zayo_policy import zayo
+from Verizon_policy import verizon
 
 
 def extract_information(message, cid_dict):
@@ -19,7 +20,8 @@ def extract_information(message, cid_dict):
         reason, my_time, cid = lumen(message)
     elif sender == 'MR Zayo':
         reason, my_time, cid = zayo(message)
-    # if sender == "Verizon"
+    elif sender == "americas-csc@verizonbusiness.com":
+        reason, my_time, cid = verizon(message)
     # if sender == "Arelion"
 
     # Format the important information
@@ -32,7 +34,7 @@ def extract_information(message, cid_dict):
         print("=" * 50)
         now = datetime.now()
         year, month, day = now.year, now.month, now.day
-        filename = f"MW_info_{year}-{month}-{day}"
+        filename = f"MW_info_{year}-{month}-{day}.txt"
         with (open(filename, 'a') as w):
             for cur_cid in cid:
                 all_info = f"Subject: {subject}\n"+f"Reason for MW: {reason}\nVendor CID is {cur_cid}\nTime is {my_time}\n"
