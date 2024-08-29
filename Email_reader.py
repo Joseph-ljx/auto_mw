@@ -2,19 +2,27 @@ from win32com.client import Dispatch
 import os
 import re
 from datetime import datetime
+
+from Input_param import input_param
 from Sender_filter import sender_filter
 from Extract import extract_information
 from read_csv import read_csv
 
-# Set the filter start time and end time
-start_date = datetime(2024, 8, 28, 22, 0)  # Start date (YYYY, MM, DD)
-end_date = datetime(2024, 8, 29, 7, 10)
-folder_name = "MW"
-account_name = input("Please enter your personal CTA email address: \n")
-# print(account_name)
+# Set the filter start time, end time, folder_name, account_name
+start_date, end_date, folder_name, account_name = input_param()
+
+##############################################################################
+# # For test
+# start_date = datetime(2024, 8, 6, 2, 30)
+# end_date = datetime(2024, 8, 6, 3, 0)
+# folder_name = "MW"
+# account_name = "yuxiwang@ctamericas.com"
+###############################################################################
+
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
 
+# Read the outlook
 outlook = Dispatch("Outlook.Application").GetNamespace("MAPI")
 filtered_messages = []
 
@@ -53,10 +61,13 @@ for message in filtered_messages:
     if (any(word in subject for word in ["Postponed", "Cancelled", "Work Ended", "Work Started"])
             and sender == 'No-Reply@Lumen.com'):
         continue
-
     # ZAYO related
     if (any(word in subject for word in ["COMPLETED", "UPDATE", "Update", "Verification", "START"])
             and sender == 'MR Zayo'):
+        continue
+    # Verizon related
+    if ((any(word in subject for word in ["REMINDER", "CANCELLED", "COMPLETED"]))
+            and sender == 'americas-csc@verizonbusiness.com'):
         continue
 
     if sender not in sender_list:
@@ -84,4 +95,3 @@ for message in filtered_messages:
             # file.write("\n--- Email Body ---\n\n")
             file.write(body)
         print(f"Email saved to {filename}")
-
