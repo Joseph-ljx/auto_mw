@@ -1,4 +1,4 @@
-#Environment
+# Environment
 1. Recommand to use outlook rule in advance to category all the MW related email into one Folder like "MW".
 2. IDE enviroment: install "pywin32" in Python Interpreter for project.
 3. Window CLI
@@ -7,7 +7,7 @@
    ```
    Remember restart the computer after pip install.
 
-#Use
+# Use
 IDE:\
 Run Email_reader.py\
 CLI:
