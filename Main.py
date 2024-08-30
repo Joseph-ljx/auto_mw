@@ -1,7 +1,3 @@
-"""
-This is the MAIN function for this script
-
-"""
 from win32com.client import Dispatch
 import os
 import re
@@ -36,6 +32,11 @@ filtered_messages = []
 
 # Backbone database, read from CSV (Data load only need one time)
 cid_dict = read_csv()
+
+"""
+This is the Main function for this script
+
+"""
 
 # Filter email base on the start time and end time
 for account in outlook.Folders:

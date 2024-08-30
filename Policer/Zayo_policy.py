@@ -1,8 +1,8 @@
-"""
-This is the policy for Zayo.
-
-"""
 def zayo(message):
+    """
+    This is the policy for Lumen.
+    We need to specify rules and characteristics of email
+    """
     body = message.body.splitlines()
     my_time = []
     reason = ""

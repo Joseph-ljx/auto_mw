@@ -1,13 +1,14 @@
-"""
-This is the policy for Lumen.
-
-"""
 def lumen(message):
-    # print(body)
+    """
+    This is the policy for Lumen.
+    We need to specify rules and characteristics of email
+    """
     body = message.body.splitlines()
     my_time = []
     reason = ""
     cid = []
+
+    # Extract email information
     for content in body:
         if "Lumen intend" in content or "Lumen will" in content or "Lumen's 3rd party" in content:
             reason = content

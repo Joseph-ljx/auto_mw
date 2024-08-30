@@ -1,9 +1,8 @@
-"""
-This is the policy for Verizon.
-
-"""
 def verizon(message):
-
+    """
+    This is the policy for Verizon.
+    We need to specify rules and characteristics of email
+    """
     # Cut the message in lines
     body = message.body.splitlines()
 
