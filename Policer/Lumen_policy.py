@@ -1,4 +1,7 @@
+"""
+This is the policy for Lumen.
 
+"""
 def lumen(message):
     # print(body)
     body = message.body.splitlines()

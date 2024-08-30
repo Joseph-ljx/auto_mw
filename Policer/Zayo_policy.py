@@ -1,4 +1,7 @@
+"""
+This is the policy for Zayo.
 
+"""
 def zayo(message):
     body = message.body.splitlines()
     my_time = []

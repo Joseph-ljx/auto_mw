@@ -1,10 +1,18 @@
+"""
+This is the policy for Verizon.
 
+"""
 def verizon(message):
+
+    # Cut the message in lines
     body = message.body.splitlines()
+
     my_time = []
     reason = ""
     cid = []
     print(body)
+
+    # Loop body information:
     for index, content in enumerate(body):
         if any(word in content for word in ["We will be", "A Third Party vendor will be"]):
             reason = content
