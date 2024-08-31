@@ -41,14 +41,17 @@ This is the Main function for this script
 # Filter email base on the start time and end time
 for account in outlook.Folders:
     print(f"Account: {account.Name}")
-    print(folder_name)
 
     # Could find this account, accumulate the email messages
     if account.Name == account_name:
 
+        # Microsoft Outlook Object
+        # Enter top folder "Inbox":
         Inbox = account.Folders["Inbox"]
+
+        # Enter sub-folder:
         Maintenance = Inbox.folders[folder_name]
-        print(f"Folder: {Maintenance.Name}")
+        print(f"Searching in Folder: {Maintenance.Name}")
 
         # Extract all emails
         messages = Maintenance.items

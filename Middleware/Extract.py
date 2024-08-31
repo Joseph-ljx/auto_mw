@@ -27,9 +27,9 @@ def extract_information(message, cid_dict):
     if cid:
         print("=" * 50)
         print(f"Subject: {subject}")
-        print(f"Sender: {sender}")
-        print(f"Received Time: {received_time}")
-        print(f"Reason for MW: {reason}\n Vendor CID is {cid}\n Time is {my_time}")
+        # print(f"Sender: {sender}")
+        # print(f"Received Time: {received_time}")
+        # print(f"Reason for MW: {reason}\n Vendor CID is {cid}\n Time is {my_time}")
         print("=" * 50)
         now = datetime.now()
         year, month, day = now.year, now.month, now.day

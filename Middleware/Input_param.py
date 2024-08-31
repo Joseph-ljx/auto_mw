@@ -33,15 +33,15 @@ def  input_param():
     # return start_date, end_date, folder_name, account_name
 
     try:
-        # 确保文件路径是绝对路径
+        # Ensure the path as absolute path
         file_path = os.path.abspath('../Database/Params.json')
 
-        # 打开并读取 JSON 文件
+        # Read JSON file
         with open(file_path, 'r', encoding='utf-8') as file:
             # 加载 JSON 数据
             data = json.load(file)
 
-        # 打印每个所需的值
+        # Print values
         # print("User:", data.get('user', 'N/A'))
         # print("Start Date:", data.get('date').get('end_Date', 'N/A'))
         # print("End Date:", data.get('date', {}).get('end_Date', 'N/A'))
@@ -59,10 +59,12 @@ def  input_param():
     account_name = data.get('account_name', 'N/A')
     folder_name = data.get('folder_name', 'N/A')
 
+    # Format start date
     start = data.get('date', {}).get('start_Date', 'N/A')
     start = start.split(".")
     start_date = datetime(int(start[0]), int(start[1]), int(start[2]), int(start[3]), int(start[4]))
 
+    # Format end date
     end = data.get('date', {}).get('end_Date', 'N/A')
     end = end.split(".")
     end_date = datetime(int(end[0]), int(end[1]), int(end[2]), int(end[3]), int(end[4]))
