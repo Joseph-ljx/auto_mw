@@ -5,19 +5,25 @@ def zayo(message):
     """
     body = message.body.splitlines()
     my_time = []
-    reason = ""
     cid = []
+    reason = ""
+    duration = ""
+
     # print(body)
     for content in body:
         if "Reason for Maintenance" in content:
             reason = content
-            print(reason)
+
+        # Format Time
         if "GMT" in content:
             my_time.append(content)
-            print(my_time)
+
+        # Format CID
         if "//ZYO" in content:
             cur = content.split("\t")
             cid.append(cur[0])
-            print(cid)
 
-    return reason, my_time, cid
+            # Format duration
+            duration = cur[1]
+
+    return reason, my_time, cid, duration
