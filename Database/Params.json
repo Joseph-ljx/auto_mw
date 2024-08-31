@@ -1,11 +1,9 @@
 {
     "user": "josephliao",
-    "account": "josephliao@ctamericas.com",
-    "age": 30,
-    "city": "New York",
-    "skills": [
-        "Python",
-        "Machine Learning",
-        "Web Development"
-    ]
+    "account_name": "josephliao@ctamericas.com",
+    "folder_name": "Maintainance",
+    "date": {
+        "start_Date": "2024.8.30.0.0",
+        "end_Date": "2024.8.30.16.0"
+    }
 }

@@ -10,7 +10,7 @@ from Middleware.Read_csv import read_csv
 from Middleware.Write_textMail import write_textMail
 
 # Manually input the start time, end time, folder_name, account_name
-start_date, end_date, folder_name, account_name = input_param()
+user, account_name, folder_name, start_date, end_date = input_param()
 
 ##############################################################################
 # # For test
@@ -41,6 +41,7 @@ This is the Main function for this script
 # Filter email base on the start time and end time
 for account in outlook.Folders:
     print(f"Account: {account.Name}")
+    print(folder_name)
 
     # Could find this account, accumulate the email messages
     if account.Name == account_name:
