@@ -9,7 +9,7 @@ from read_csv import read_csv
 def extract_information(message, cid_dict):
     subject = message.Subject
     sender = message.SenderName
-    # print(sender)
+    print(sender)
     body = message.body.splitlines()
     received_time = message.ReceivedTime
     save_email_flag = False
@@ -26,7 +26,6 @@ def extract_information(message, cid_dict):
         reason, my_time, cid = verizon(message)
     elif sender == 'ncm@arelion.com':
         reason, my_time, cid = arelion(message)
-    # if sender == "Arelion"
 
     # Format the important information
     if cid:
@@ -53,6 +52,7 @@ def extract_information(message, cid_dict):
                     w.write("\n\n")
 
     return save_email_flag
+
 
 if __name__ == "__main__":
     message = ''

@@ -69,7 +69,9 @@ for message in filtered_messages:
     if ((any(word in subject for word in ["REMINDER", "CANCELLED", "COMPLETED"]))
             and sender == 'americas-csc@verizonbusiness.com'):
         continue
-
+    # Arelion related
+    if any(word in subject for word in ["Reminder"]) and sender == 'ncm@arelion.com':
+        continue
     if sender not in sender_list:
         continue
 

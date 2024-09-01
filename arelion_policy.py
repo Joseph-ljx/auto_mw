@@ -1,6 +1,8 @@
 from textfsm import TextFSM
 from datetime import datetime
 from win32com.client import Dispatch
+
+
 def arelion(message):
     body = message.body
     my_time = []
@@ -9,17 +11,24 @@ def arelion(message):
     with open('arelion.textfsm', encoding='utf8') as textfsm_file:
         template = TextFSM(textfsm_file)
         datas = template.ParseTextToDicts(body)
+        status = []
         for line in datas:
             # print(line)
+            if len(line['WORK_STATUS']) != 0:
+                status.append(line['WORK_STATUS'])
             if len(line['REASON']) != 0:
                 reason = line['REASON']
-            if len(line['WINDOW_START']) != 0:
+            if len(line['WINDOW_START']) != 0 and status.pop(0) == "Confirmed":
                 temp = line['WINDOW_START'] + ' ' + line['WINDOW_END']
                 my_time.append(temp)
-            if len(line['IMPACT_SERVICE_ID']) != 0:
-                cid.append(line['IMPACT_SERVICE_ID'])
+                if len(line['IMPACT_SERVICE_ID']) != 0:
+                    # print(line['IMPACT_SERVICE_ID'])
+                    cid.append(line['IMPACT_SERVICE_ID'])
+            # if any(word in line['UPDATE_CONTENT'] for word in ["rescheduled", "Implemented", "Cancelled"]):
+            #     return [], "", []
 
     return reason, my_time, cid
+
 
 if __name__ == "__main__":
     start_date = datetime(2024, 8, 5, 1, 0)

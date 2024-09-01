@@ -16,7 +16,7 @@ def verizon(message):
             my_time.append(content.split('\t')[1])
             print(my_time)
         if any(word in content for word in ["CHINA TELECOM (USA) CORP.", "CHINA TELECOM USA CORPORATION",
-                                            "CHINA TELECOM (AMERICAS) CORPORATION", "CHINA TELECOM CORP"]):
+                                            "CHINA TELECOM (AMERICAS) CORPORATION", "CHINA TELECOM CORP", "CTA"]):
             cur = content.split("\t")
             cid.append(cur[1].replace(" ", ""))
             print(cid)
