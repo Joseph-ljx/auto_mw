@@ -1,0 +1,12 @@
+Value REASON (.*)
+Value WINDOW_START (\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)
+Value WINDOW_END (\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)
+Value List IMPACT_SERVICE_ID (\S+)
+
+Start
+  ^Action\sand\sReason:\s+${REASON}\s\t
+  ^Service window start: -> Continue.Record
+  ^Service\swindow\sstart: \s+${WINDOW_START}
+  ^Service\swindow\send:\s+${WINDOW_END}
+  ^${IMPACT_SERVICE_ID}\s+.*x
+

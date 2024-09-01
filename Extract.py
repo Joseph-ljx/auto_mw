@@ -2,6 +2,8 @@ from datetime import datetime
 from Lumen_policy import lumen
 from Zayo_policy import zayo
 from Verizon_policy import verizon
+from arelion_policy import arelion
+from read_csv import read_csv
 
 
 def extract_information(message, cid_dict):
@@ -22,6 +24,8 @@ def extract_information(message, cid_dict):
         reason, my_time, cid = zayo(message)
     elif sender == "americas-csc@verizonbusiness.com":
         reason, my_time, cid = verizon(message)
+    elif sender == 'ncm@arelion.com':
+        reason, my_time, cid = arelion(message)
     # if sender == "Arelion"
 
     # Format the important information
@@ -49,3 +53,8 @@ def extract_information(message, cid_dict):
                     w.write("\n\n")
 
     return save_email_flag
+
+if __name__ == "__main__":
+    message = ''
+    cid_dict = read_csv()
+    extract_information(message, cid_dict)
