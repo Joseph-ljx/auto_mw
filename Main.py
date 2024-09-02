@@ -9,16 +9,13 @@ from Middleware.Extract import extract_information
 from Middleware.Read_csv import read_csv
 from Middleware.Write_textMail import write_textMail
 
-# Manually input the start time, end time, folder_name, account_name
+# Read the needed information from Params
+# user: Primary key for distinguish
+# account_name: Email address
+# folder_name: Folder to enter
+# start_date: Start filter time
+# end_date: End filter time
 user, account_name, folder_name, start_date, end_date = input_param()
-
-##############################################################################
-# # For test
-# start_date = datetime(2024, 8, 6, 2, 30)
-# end_date = datetime(2024, 8, 6, 3, 0)
-# folder_name = "MW"
-# account_name = "yuxiwang@ctamericas.com"
-###############################################################################
 
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
@@ -74,7 +71,7 @@ for message in filtered_messages:
     received_time = message.ReceivedTime
     body = message.body
 
-    # Skip some email
+    # Use "continue" to skip some unmatch email
     # General Skipping using subject
     if subject in subject_list:
         continue
@@ -88,7 +85,7 @@ for message in filtered_messages:
             and sender == 'No-Reply@Lumen.com'):
         continue
 
-    # ZAYO
+    # Zayo
     if (any(word in subject for word in ["COMPLETED", "UPDATE", "Update", "Verification", "START"])
             and sender == 'MR Zayo'):
         continue
@@ -98,7 +95,7 @@ for message in filtered_messages:
             and sender == 'americas-csc@verizonbusiness.com'):
         continue
 
-    # Fake sender
+    # Unrecognized sender
     if sender not in sender_list:
         continue
 

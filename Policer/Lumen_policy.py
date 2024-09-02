@@ -25,7 +25,7 @@ def lumen(message):
             cur = content.split("\t")
             cid.append(cur[1].replace(" ", ""))
 
-            # Extract time duration
+            # Extract time duration information
             duration = cur[7]
 
     return reason, my_time, cid, duration
