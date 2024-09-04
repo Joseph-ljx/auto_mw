@@ -81,7 +81,7 @@ for message in filtered_messages:
         continue
 
     # Lumen
-    if (any(word in subject for word in ["Postponed", "Cancelled", "Work Ended", "Work Started"])
+    if (any(word in subject for word in ["Postponed", "Cancelled", "Work Ended", "Work Started", "Progress Update"])
             and sender == 'No-Reply@Lumen.com'):
         continue
 
