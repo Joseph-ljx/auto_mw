@@ -1,15 +1,20 @@
 from datetime import datetime
+
+from Policer.Arelion_policy import arelion
 from Policer.Lumen_policy import lumen
 from Policer.Zayo_policy import zayo
 from Policer.Verizon_policy import verizon
 
-
+"""
+This method is to extract the desired information from each email message
+"""
 def extract_information(message, cid_dict):
     subject = message.Subject
     sender = message.SenderName
     # print(sender)
     body = message.body.splitlines()
     received_time = message.ReceivedTime
+
     save_email_flag = False
     my_time = []
     cid = []
@@ -23,7 +28,8 @@ def extract_information(message, cid_dict):
         reason, my_time, cid, duration = zayo(message)
     elif sender == "americas-csc@verizonbusiness.com":
         reason, my_time, cid, duration = verizon(message)
-    # if sender == "Arelion"
+    elif sender == "ncm@arelion.com":
+        reason, my_time, cid, duration = arelion(message)
 
     # If CID is not empty (we can identify this circuit)
     if cid:

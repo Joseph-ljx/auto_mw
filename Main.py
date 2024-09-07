@@ -97,6 +97,12 @@ for message in filtered_messages:
             and sender == 'americas-csc@verizonbusiness.com'):
         continue
 
+    # Arelion
+    if ((any(word in subject for word in ["Update"]))
+            and sender == 'ncm@arelion.com'):
+        print("Skip arelion")
+        continue
+
     # Unrecognized sender
     if sender not in sender_list:
         continue
