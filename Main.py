@@ -91,6 +91,8 @@ for message in filtered_messages:
         continue
 
     # Verizon
+    # 'Emergency' can not be removed from Verizon
+    # Verizon sometimes send notification in 3-4 days in advanced marked as 'Emergency'
     if ((any(word in subject for word in ["REMINDER", "CANCELLED", "COMPLETED"]))
             and sender == 'americas-csc@verizonbusiness.com'):
         continue

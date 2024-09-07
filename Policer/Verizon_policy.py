@@ -2,15 +2,17 @@ def verizon(message):
     """
     This is the policy for Verizon.
     We need to specify rules and characteristics of email
+    * body: The body of the email message
+    * my_time: Scheduled maintenance time
+    * Vendor's cid: Circuit ID
+    * Duration: Maintenance time frame
     """
     # Cut the message in lines
     body = message.body.splitlines()
-
     my_time = []
     reason = ""
     duration = ""
     cid = []
-    print(body)
 
     # Loop body information:
     for index, content in enumerate(body):
