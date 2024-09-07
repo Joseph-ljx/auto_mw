@@ -1,5 +1,6 @@
 import csv
 from collections import defaultdict
+import json
 
 
 def read_csv():
@@ -23,7 +24,25 @@ def read_csv():
     return CID_dict
 
 
+def read_json():
+    with open('CTA_backbone.json', 'r') as j_file:
+        data = json.load(j_file)
+        # print(data)
+    new_cid_dict = defaultdict(list)
+    for circuit in data:
+        if circuit['VCID']:
+            new_cid_dict[circuit['VCID']].append(circuit['CTCID'])
+            if circuit['Note']:
+                new_cid_dict[circuit['VCID']].append(circuit['Note'])
+
+    return new_cid_dict
+
+
 if __name__ == "__main__":
     CID_dict = read_csv()
     for key, val in CID_dict.items():
+        print(key, val)
+    print(100*'*')
+    my_new_cid_dict = read_json()
+    for key, val in my_new_cid_dict.items():
         print(key, val)

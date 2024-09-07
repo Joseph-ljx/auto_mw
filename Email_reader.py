@@ -6,7 +6,7 @@ from datetime import datetime
 from Input_param import input_param
 from Sender_filter import sender_filter
 from Extract import extract_information
-from read_csv import read_csv
+from read_csv import read_csv, read_json
 
 # Set the filter start time, end time, folder_name, account_name
 start_date, end_date, folder_name, account_name = input_param()
@@ -52,6 +52,7 @@ for message in filtered_messages:
     body = message.body
     # print(sender)
     # print(f"Subject: {subject}")
+
     # Skip some email
     if subject in subject_list:
         continue
@@ -76,7 +77,8 @@ for message in filtered_messages:
         continue
 
     # CTA backbone database
-    cid_dict = read_csv()
+    # cid_dict = read_csv()
+    cid_dict = read_json()
     # Extract information
     backbone = extract_information(message, cid_dict)
 
