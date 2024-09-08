@@ -4,10 +4,10 @@ import re
 from datetime import datetime
 
 from Middleware.Input_param import input_param
-from Filter.Sender_filter import sender_filter
 from Middleware.Extract import extract_information
 from Middleware.Read_csv import read_csv
 from Middleware.Write_textMail import write_textMail
+from Filter.Main_filter import main_filter
 
 # Read the needed information from Params
 # user: Primary key for distinguish
@@ -19,9 +19,6 @@ user, account_name, folder_name, start_date, end_date = input_param()
 
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
-
-# Read the list information
-sender_list, subject_list = sender_filter()
 
 # Connect to the local cache outlook
 outlook = Dispatch("Outlook.Application").GetNamespace("MAPI")
@@ -36,6 +33,7 @@ This is the Main function for this script
 """
 
 # Filter email base on the start time and end time
+# We need to find out the emails in a specific time range
 for account in outlook.Folders:
     print(f"Account: {account.Name}")
 
@@ -57,59 +55,32 @@ for account in outlook.Folders:
         for message in messages:
             if message.Class == 43:
                 received_time = message.ReceivedTime
-                # print(received_time)
                 received_time_naive = received_time.replace(tzinfo=None)
                 if start_date <= received_time_naive <= end_date:
-                    # Concluded messages
+
+                    # Concluded messages into filtered messages
                     filtered_messages.append(message)
         break
 
-# Judge each message
+# Loop through each message that in the time range
+# We need to figure out all the message that live up to our expectation
 for message in filtered_messages:
     subject = message.Subject
     sender = message.SenderName
     received_time = message.ReceivedTime
     body = message.body
 
-    # Use "continue" to skip some unmatch email
-    # General Skipping using subject
-    if subject in subject_list:
+    # Enter the filters
+    # Exclude useless emails
+    if main_filter(subject, sender):
         continue
 
-    # Omit CTU & NMC useless email information
-    if "China Telecom (Europe) Limited" in subject and sender == 'nmc':
-        continue
-
-    # Lumen
-    if (any(word in subject for word in ["Postponed", "Cancelled", "Work Ended", "Work Started", "Progress Update"])
-            and sender == 'No-Reply@Lumen.com'):
-        continue
-
-    # Zayo
-    if (any(word in subject for word in ["COMPLETED", "UPDATE", "Update", "Verification", "START"])
-            and sender == 'MR Zayo'):
-        continue
-
-    # Verizon
-    # 'Emergency' can not be removed from Verizon
-    # Verizon sometimes send notification in 3-4 days in advanced marked as 'Emergency'
-    if ((any(word in subject for word in ["REMINDER", "CANCELLED", "COMPLETED"]))
-            and sender == 'americas-csc@verizonbusiness.com'):
-        continue
-
-    # Arelion
-    if ((any(word in subject for word in ["Update"]))
-            and sender == 'ncm@arelion.com'):
-        print("Skip arelion")
-        continue
-
-    # Unrecognized sender
-    if sender not in sender_list:
-        continue
-
-    # Judge whether (each message) it is a backbone to report on Zong Diao
+    # Extract relevant information
+    # Determine  whether it is a backbone to report on Zong Diao
     backbone = extract_information(message, cid_dict)
 
-    # Backbone circuit, save the email as txt, export the email for uploading and prove
+    # For Backbone circuit:
+    # Save the email as txt
+    # Export the email for uploading and prove
     if backbone:
         write_textMail(body, subject)
