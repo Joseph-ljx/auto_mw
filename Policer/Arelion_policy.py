@@ -8,7 +8,7 @@ def arelion(message):
     my_time = []
     reason = ""
     cid = []
-    with open('arelion.textfsm', encoding='utf8') as textfsm_file:
+    with open('../arelion.textfsm', encoding='utf8') as textfsm_file:
         template = TextFSM(textfsm_file)
         datas = template.ParseTextToDicts(body)
         status = []

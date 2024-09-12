@@ -4,7 +4,7 @@ import json
 
 
 def read_csv():
-    with open('temp.csv', 'r') as csvfile:
+    with open('../Database/temp.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)
         temp = []
         for content in csvreader:
