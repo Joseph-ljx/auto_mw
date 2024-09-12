@@ -81,4 +81,3 @@ def  input_param():
 # 如果没有这个空字典作为默认值，data.get('date') 在 'date' 键缺失的情况下将返回 None
 # 并且尝试在 None 上调用 .get('start_Date') 会导致 AttributeError 异常。
 # 使用空字典 {} 避免了这种情况。
-

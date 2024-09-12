@@ -42,4 +42,3 @@ if __name__ == "__main__":
     for key, val in CID_dict.items():
         for value in val:
             print(key, ": " + value)
-

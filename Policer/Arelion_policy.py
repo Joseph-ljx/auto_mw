@@ -71,4 +71,3 @@ def arelion(message):
             #     return [], "", []
 
     return reason, my_time, cid, duration
-
