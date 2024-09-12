@@ -14,7 +14,6 @@ def arelion(message):
     * Vendor's cid: Circuit ID
     * Duration: Maintenance time frame
     """
-
     body = message.body
     my_time = []
     reason = ""

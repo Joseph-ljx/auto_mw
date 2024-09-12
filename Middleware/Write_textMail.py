@@ -22,7 +22,6 @@ output_dir = os.path.join(current_path, 'Output')
 # Get into the output dir
 os.chdir(output_dir)
 
-
 def write_textMail(Body, Subject):
 
     # Format a file name in .txt postfix

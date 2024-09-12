@@ -31,4 +31,3 @@ def zayo(message):
             duration = cur[1]
 
     return reason, my_time, cid, duration
-

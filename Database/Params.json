@@ -1,9 +1,10 @@
 {
-    "user": "yuxiwang",
-    "account_name": "yuxiwang@ctamericas.com",
-    "folder_name": "MW",
+    "user": "josephliao",
+    "account_name": "josephliao@ctamericas.com",
+    "folder_name": "Maintainance",
     "date": {
-        "start_Date": "2024.9.12.0.0",
-        "end_Date": "2024.9.12.12.0"
+        "start_Date": "2024.9.7.16.0",
+        "end_Date": "2024.9.8.16.0"
+
     }
 }
