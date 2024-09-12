@@ -1,78 +1,75 @@
 from textfsm import TextFSM
-from datetime import datetime
-from win32com.client import Dispatch
+import os
 
+# Import the correct path for opening Arelion.textfsm
+base_dir = os.path.dirname(__file__)  # 获取当前脚本文件所在的目录
+file_path = os.path.join(base_dir, 'Plugin', 'Arelion.textfsm')
 
 def arelion(message):
+    """
+    This is the policy for Arelion.
+    We need to specify rules and characteristics of email
+    * body: The body of the email message
+    * my_time: Scheduled maintenance time
+    * Vendor's cid: Circuit ID
+    * Duration: Maintenance time frame
+    """
+
     body = message.body
     my_time = []
     reason = ""
     cid = []
-    with open('../arelion.textfsm', encoding='utf8') as textfsm_file:
+    duration = "During the maintenance window"
+
+    with open(file_path, encoding='utf8') as textfsm_file:
+
+        # Format TextFSM template
         template = TextFSM(textfsm_file)
         datas = template.ParseTextToDicts(body)
-        status = []
+
+        # Use queue to deal with service type and working status
+        service_type = []
+        work_status = []
+
+        # Judge each line
         for line in datas:
-            # print(line)
-            if len(line['WORK_STATUS']) != 0:
-                status.append(line['WORK_STATUS'])
-            if len(line['REASON']) != 0:
+
+            # Reason
+            if len(line['REASON']) > 0:
                 reason = line['REASON']
-            if len(line['WINDOW_START']) != 0 and status.pop(0) == "Confirmed":
-                temp = line['WINDOW_START'] + ' ' + line['WINDOW_END']
-                my_time.append(temp)
-                if len(line['IMPACT_SERVICE_ID']) != 0:
+
+            # Arelion work status
+            # strip() to avoid spaces in front or end of the string
+            if len(line['WORK_STATUS']) > 0:
+                work_status.append(line['WORK_STATUS'].strip())
+
+            # Judge whether it is a primary or backup maintenance
+            if len(line['SERVICE_TYPE']) > 0:
+                # print(line['SERVICE_TYPE'])
+                service_type.append(line['SERVICE_TYPE'].strip())
+
+            # If this maintenance is cancelled, skip
+            # If this maintenance is in process, skip
+            if work_status and (work_status[-1] == 'Cancelled' or work_status[-1] == 'In process'):
+                continue
+
+            # Judge whether it is a primary or backup maintenance
+            # We only record CID information when in primary
+            if service_type and service_type[-1] == 'primary':
+                # Service ID:
+                if len(line['IMPACT_SERVICE_ID']) > 0:
                     # print(line['IMPACT_SERVICE_ID'])
                     cid.append(line['IMPACT_SERVICE_ID'])
+
+            # Time
+            # No matter primary or backup maintenance we both need to record the time
+            if len(line['WINDOW_START']) != 0: # and status.pop(0) == "Confirmed": -> Put it in filter
+                temp = line['WINDOW_START'] + ' ' + line['WINDOW_END']
+                my_time.append(temp)
+
+            # Future modify filter for arelion
             # if any(word in line['UPDATE_CONTENT'] for word in ["rescheduled", "Implemented", "Cancelled"]):
             #     return [], "", []
 
-    return reason, my_time, cid
+    return reason, my_time, cid, duration
 
-
-if __name__ == "__main__":
-    start_date = datetime(2024, 8, 5, 1, 0)
-    end_date = datetime(2024, 8, 5, 1, 2)
-    folder_name = ""
-    account_name = "ruijiezhu@ctamericas.com"
-    ###############################################################################
-
-    now = datetime.now()
-    year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
-
-    # Read the outlook
-    outlook = Dispatch("Outlook.Application").GetNamespace("MAPI")
-    filtered_messages = []
-
-    # List all accounts configured in Outlook
-    accounts = outlook.Folders
-
-    # Loop through the accounts to find the one you want
-    for account in accounts:
-        print(f"Account: {account.Name}")
-
-    target_account = accounts['ruijiezhu@ctamericas.com']
-
-    # Navigate to the Inbox of the specific account
-    inbox = target_account.Folders['Inbox']
-    Maintenance = inbox.Folders['Maintenance']
-    messages = Maintenance.items
-
-    # Convert dates to the format required by Outlook ([mm/dd/yyyy hh:mm AM/PM])
-    start_date_str = start_date.strftime("%m/%d/%Y %I:%M %p")
-    end_date_str = end_date.strftime("%m/%d/%Y %I:%M %p")
-
-    # Create a filter string
-    filter_str = f"[ReceivedTime] >= '{start_date_str}' AND [ReceivedTime] <= '{end_date_str}'"
-
-    # Use the Restrict method to filter the items
-    filtered_items = Maintenance.Items.Restrict(filter_str)
-
-    for message in filtered_items:
-        reason, my_time, cid = arelion(message)
-        print(reason)
-        print(my_time)
-        print(cid)
-        # show_text = message.body
-        # print(message.subject)
-    pass
