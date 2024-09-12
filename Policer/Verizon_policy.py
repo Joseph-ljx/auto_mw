@@ -1,4 +1,5 @@
 def verizon(message):
+
     """
     This is the policy for Verizon.
     We need to specify rules and characteristics of email
@@ -7,6 +8,7 @@ def verizon(message):
     * Vendor's cid: Circuit ID
     * Duration: Maintenance time frame
     """
+
     # Cut the message in lines
     body = message.body.splitlines()
     my_time = []
