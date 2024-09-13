@@ -1,7 +1,7 @@
 ﻿#,,,,,,,
 HIL-LAX OTN100G-1(IOTNhw),100,OTU4,Zayo,PL/OMDD/867373//ELG,"Los Angeles, CA","Hillsboro, OR",
 HIL-LAX OTN100G-2(IOTNhw),100,OTU4,Lumen,440852191,"Hillsboro, OR","Los Angeles, CA",Hillsboro/CTUSA-LAX/CTUSA 100G003*TD
-HIL-SEA OTN100G-1(IOTNhw),100,OTU4,Zayo,OQYX/861356//ZYO,"Seattle, WA","Hillsboro, OR",
+HIL-SEA OTN100G-1(IOTNhw),100,OTU4,Zayo,OQYX/861356//ZYO,"Seattle, WA","Hillsboro, OR", 希尔斯伯勒西雅图OTN100G-1
 HIL-SEA OTN100G-1(IOTNhw),100,OTU4,Zayo,OQYX/141836//ZYO,"Seattle, WA","Hillsboro, OR",
 HIL-SJC OTN100G-1(IOTNhw),100,OTU4,Zayo,PL/OMDD/867273//ELG,"San Jose, CA","Hillsboro, OR",
 HIL-SJC OTN100G-1(IOTNhw),100,OTU4,Zayo,OQYX/867273//ZYO,"San Jose, CA","Hillsboro, OR",

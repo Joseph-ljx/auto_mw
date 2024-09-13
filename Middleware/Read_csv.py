@@ -1,7 +1,12 @@
+"""
+Read the data from temp.csv file
+* CID_dict: [Key, Value] hashmap
+    1. key is a string for storing
+    2. Value is an array storing multiple values. like val[0], val[1], val[2]...
+    3. Return the key value map for checking
+"""
 import csv
 from collections import defaultdict
-import json
-
 
 def read_csv():
     with open('../Database/temp.csv', 'r') as csvfile:
@@ -11,38 +16,29 @@ def read_csv():
             temp.append(content)
     # print(temp)
 
+    # Save in a hashmap dictionary (key - value):
     CID_dict = defaultdict(list)
     for content in temp:
         if len(content) < 2:
             continue
         if not content[0]:
             continue
+
+        # Append value into an array of this key
         CID_dict[content[4]].append(content[0])
+
+        # If there are alternative CID: val[0] main CID, val[1] secondary CID
         if content[7]:
-            CID_dict[content[4]].append("alternative: " + content[7])
-    # val[0] main CID, val[1] secondary CID
+            CID_dict[content[4]].append("Alternative: " + content[7])
+
     return CID_dict
 
 
-def read_json():
-    with open('CTA_backbone.json', 'r') as j_file:
-        data = json.load(j_file)
-        # print(data)
-    new_cid_dict = defaultdict(list)
-    for circuit in data:
-        if circuit['VCID']:
-            new_cid_dict[circuit['VCID']].append(circuit['CTCID'])
-            if circuit['Note']:
-                new_cid_dict[circuit['VCID']].append(circuit['Note'])
-
-    return new_cid_dict
-
-
+# 这行代码的作用是检查当前脚本是否是直接运行的。
+# 如果是直接运行的，条件为真，执行其下的代码块；如果脚本是被导入的，条件为假，代码块不会执行
+# For testing:
 if __name__ == "__main__":
     CID_dict = read_csv()
     for key, val in CID_dict.items():
-        print(key, val)
-    print(100*'*')
-    my_new_cid_dict = read_json()
-    for key, val in my_new_cid_dict.items():
-        print(key, val)
+        for value in val:
+            print(key, ": " + value)

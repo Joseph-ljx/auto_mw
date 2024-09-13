@@ -18,3 +18,8 @@ CLI:
    ```
 3. Need to input the Folder name
 4. Need to input the email address for your account
+
+# Future Development
+1. Use JSON data format to fulfill CID information
+2. format policy into one folder
+3. 
