@@ -5,6 +5,7 @@ import os
 base_dir = os.path.dirname(__file__)  # 获取当前脚本文件所在的目录
 file_path = os.path.join(base_dir, 'Plugin', 'Arelion.textfsm')
 
+
 def arelion(message):
     """
     This is the policy for Arelion.
@@ -32,7 +33,6 @@ def arelion(message):
 
         # Judge each line
         for line in datas:
-
             # Reason
             if len(line['REASON']) > 0:
                 reason = line['REASON']
@@ -49,12 +49,23 @@ def arelion(message):
 
             # If this maintenance is cancelled, skip
             # If this maintenance is in process, skip
-            if work_status and (work_status[-1] == 'Cancelled' or work_status[-1] == 'In process'):
+            if work_status and (work_status[-1] == 'Cancelled' or work_status[-1] == 'In process' or
+                                work_status[-1] == 'Implemented'):
+                # No need to store
+                work_status.pop()
+                service_type.pop()
                 continue
 
             # Judge whether it is a primary or backup maintenance
             # We only record CID information when in primary
             if service_type and service_type[-1] == 'primary':
+                # Service ID:
+                if len(line['IMPACT_SERVICE_ID']) > 0:
+                    # print(line['IMPACT_SERVICE_ID'])
+                    cid.append(line['IMPACT_SERVICE_ID'])
+
+            # Judge whether it is a primary window canceled and use backup
+            if service_type and service_type[-1] == 'backup' and len(service_type) == 1:
                 # Service ID:
                 if len(line['IMPACT_SERVICE_ID']) > 0:
                     # print(line['IMPACT_SERVICE_ID'])
@@ -69,5 +80,10 @@ def arelion(message):
             # Future modify filter for arelion
             # if any(word in line['UPDATE_CONTENT'] for word in ["rescheduled", "Implemented", "Cancelled"]):
             #     return [], "", []
+
+        # If primary is canceled, no need to record primary window
+        if service_type and service_type[0] == 'backup' and len(my_time) == 2:
+            # pop the primary window
+            my_time.pop(0)
 
     return reason, my_time, cid, duration
