@@ -19,8 +19,12 @@ current_path = os.getcwd()
 # Form output dir (We want all of this result to be print to output)
 output_dir = os.path.join(current_path, 'Output')
 
+if not os.path.exists(output_dir):
+    os.mkdir(output_dir)
+
 # Get into the output dir
 os.chdir(output_dir)
+
 
 def write_textMail(Body, Subject):
 
