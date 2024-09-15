@@ -11,5 +11,5 @@ def arelion_filter(subject, sender):
     """
 
     if sender == 'ncm@arelion.com':
-        if any(word in subject for word in ['Update']):
+        if any(word in subject for word in ['Reminder']):
             return True

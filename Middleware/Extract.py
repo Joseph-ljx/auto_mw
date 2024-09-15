@@ -8,6 +8,8 @@ from Policer.Verizon_policy import verizon
 """
 This method is to extract the desired information from each email message
 """
+
+
 def extract_information(message, cid_dict):
     subject = message.Subject
     sender = message.SenderName
