@@ -1,0 +1,18 @@
+Value REASON (.*)
+Value WORK_STATUS (.+)
+Value WINDOW_START (\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)
+Value WINDOW_END (\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)
+Value IMPACT_SERVICE_ID (IC-\d+)
+
+
+
+
+Start
+  ^Action\sand\sReason:\s+${REASON}\s\t
+  ^Service\s+Window:\s+.+?\s+Work\s+Status:\s+${WORK_STATUS}\s\t -> Record
+  ^Service window start: -> Continue.Record
+  ^Service\swindow\sstart: \s+${WINDOW_START}
+  ^Service\swindow\send:\s+${WINDOW_END}
+  ^${IMPACT_SERVICE_ID}\s+.* -> Record
+
+
