@@ -8,6 +8,7 @@ Read the data from temp.csv file
 import csv
 from collections import defaultdict
 
+
 def read_csv():
     with open('../Database/temp.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)
