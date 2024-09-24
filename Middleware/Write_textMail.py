@@ -34,7 +34,13 @@ def write_textMail(Body, Subject):
         filename = re.sub(r'[\/:*?"<>|\t]', '', filename)
         # Replace multiple spaces with a single space
         filename = re.sub(r'\s+', ' ', filename)
-        return filename.strip()
+        # Remove the space on the front and the end of the word
+        filename = filename.strip()
+        # Ensure the file has a .txt extension
+        if not filename.endswith('.txt'):
+            filename += '.txt'
+
+        return filename
 
     # Create dir
     # If dir not exist, create the dir
