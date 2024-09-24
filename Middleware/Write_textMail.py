@@ -28,16 +28,23 @@ os.chdir(output_dir)
 
 def write_textMail(Body, Subject):
 
-    # Format a file name in .txt postfix
-    filename = re.sub(r'[^\w\s]', ' ', Subject) + '.txt'
-    filename = filename.replace("  ", " ")
+    # Sanitize filename to remove invalid characters for Windows
+    def sanitize_filename(filename):
+        # Remove invalid characters such as \ / : * ? " < > | and \t (tab)
+        filename = re.sub(r'[\/:*?"<>|\t]', '', filename)
+        # Replace multiple spaces with a single space
+        filename = re.sub(r'\s+', ' ', filename)
+        return filename.strip()
 
     # Create dir
     # If dir not exist, create the dir
     dir_name = f"Email_Dir_{year}-{month}-{day}"
     if not os.path.exists(dir_name):
         os.mkdir(dir_name)
-    file_path = '\\'.join((dir_name, filename))
+
+    # Sanitize the filename to avoid invalid characters
+    filename = sanitize_filename(Subject)
+    file_path = os.path.join(dir_name, filename)
 
     # Every single email will write one single email to the directory
     with open(file_path, 'w', encoding='utf-8') as file:
