@@ -1,3 +1,6 @@
+import csv
+from collections import defaultdict
+
 """
 Read the data from temp.csv file
 * CID_dict: [Key, Value] hashmap
@@ -5,9 +8,6 @@ Read the data from temp.csv file
     2. Value is an array storing multiple values. like val[0], val[1], val[2]...
     3. Return the key value map for checking
 """
-import csv
-from collections import defaultdict
-
 def read_csv():
     with open('../Database/temp.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)

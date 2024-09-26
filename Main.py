@@ -6,6 +6,7 @@ from datetime import datetime
 from Middleware.Input_param import input_param
 from Middleware.Extract import extract_information
 from Middleware.Read_csv import read_csv
+from Middleware.Send_email import send_exchange_mail
 from Middleware.Write_textMail import write_textMail
 from Filter.Main_filter import main_filter
 
@@ -84,3 +85,6 @@ for message in filtered_messages:
     # Export the email for uploading and prove
     if backbone:
         write_textMail(body, subject)
+
+# Send the reference information to the outlook personal exchange account
+send_exchange_mail()
