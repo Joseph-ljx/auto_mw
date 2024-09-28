@@ -36,6 +36,7 @@ def write_textMail(Body, Subject):
         filename = re.sub(r'\s+', ' ', filename)
         # Remove the space on the front and the end of the word
         filename = filename.strip()
+
         # Ensure the file has a .txt extension
         if not filename.endswith('.txt'):
             filename += '.txt'

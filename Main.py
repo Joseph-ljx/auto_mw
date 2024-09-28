@@ -11,12 +11,8 @@ from Middleware.Write_textMail import write_textMail
 from Filter.Main_filter import main_filter
 
 # Read the needed information from Params
-# user: Primary key for distinguish
-# account_name: Email address
-# folder_name: Folder to enter
-# start_date: Start filter time
-# end_date: End filter time
-user, account_name, folder_name, start_date, end_date = input_param()
+# OS will always work in the /root dir, make sure it import correctly
+user, account_name, folder_name, start_date, end_date, server, primary_smtp_address, username, password, recipients = input_param()
 
 now = datetime.now()
 year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
@@ -87,4 +83,4 @@ for message in filtered_messages:
         write_textMail(body, subject)
 
 # Send the reference information to the outlook personal exchange account
-send_exchange_mail()
+send_exchange_mail(server, primary_smtp_address, username, password, recipients)

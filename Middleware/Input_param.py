@@ -4,33 +4,23 @@ This Function is used for inputting params for checking the relevant emails in a
 * End Time: end
 * Folder: maintenance folder
 * Account Name: email address
+* user: Primary key for distinguish
+* account_name: Email address
+* folder_name: Folder to enter
+* start_date: Start filter time
+* end_date: End filter time
+* server: Sever
+* primary_smtp_address:Primary smtp address
+* username: User's email name
+* password: password
+# recipients = recipients
 """
 import os
 from datetime import datetime
 import json
 from turtledemo.penrose import start
 
-
-def  input_param():
-
-    # # Set the filter start time
-    # start = input("Enter the filter start time like: 2024,8,29,10,2 (No ahead zero like 08)\n")
-    # start = start.split(",")
-    # start_date = datetime(int(start[0]), int(start[1]), int(start[2]), int(start[3]), int(start[4]))
-    # print(f"Your start time: {start_date}")
-    #
-    # # Set the filter's end time
-    # end = input("Enter the filter end time like: 2024,8,29,10,2 (No ahead zero like 08)\n")
-    # end = end.split(",")
-    # end_date = datetime(int(end[0]), int(end[1]), int(end[2]), int(end[3]), int(end[4]))
-    # print(f"Your end time: {end_date}")
-    #
-    # # Set the folder name (Maintenance folder)
-    # folder_name = input("Please enter the folder for you: \n")
-    #
-    # # Set the account name
-    # account_name = input("Please enter your personal CTA email address: \n")
-    # return start_date, end_date, folder_name, account_name
+def input_param():
 
     try:
         # Ensure the path as absolute path
@@ -40,11 +30,6 @@ def  input_param():
         with open(file_path, 'r', encoding='utf-8') as file:
             # 加载 JSON 数据
             data = json.load(file)
-
-        # Print values
-        # print("User:", data.get('user', 'N/A'))
-        # print("Start Date:", data.get('date').get('end_Date', 'N/A'))
-        # print("End Date:", data.get('date', {}).get('end_Date', 'N/A'))
 
     # Exception Handling
     except FileNotFoundError:
@@ -56,7 +41,11 @@ def  input_param():
 
     # Assign and return params information
     user = data.get('user', 'N/A')
+
+    # Account Name
     account_name = data.get('account_name', 'N/A')
+
+    # Folder
     folder_name = data.get('folder_name', 'N/A')
 
     # Format start date
@@ -69,7 +58,14 @@ def  input_param():
     end = end.split(".")
     end_date = datetime(int(end[0]), int(end[1]), int(end[2]), int(end[3]), int(end[4]))
 
-    return user, account_name, folder_name, start_date, end_date
+    # Email Account Information
+    server = data.get('email', {}).get('server', 'N/A')
+    primary_smtp_address = data.get('email', {}).get('primary_smtp_address', 'N/A')
+    username = data.get('email', {}).get('username', 'N/A')
+    password = data.get('email', {}).get('password', 'N/A')
+    recipients = data.get('email', {}).get('recipients', 'N/A')
+
+    return user, account_name, folder_name, start_date, end_date, server, primary_smtp_address, username, password, recipients
 
 ### TESTING ###
 # if __name__ == "__main__":
