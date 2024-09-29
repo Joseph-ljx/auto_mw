@@ -1,13 +1,7 @@
-from exchangelib import Credentials, Account, Message, Configuration
+from exchangelib import Credentials, Account, Message, Configuration, FileAttachment
 from exchangelib import DELEGATE
 from datetime import datetime
-
-# Os will always work in the /root dir, make sure it import correctly
-from Middleware.Input_param import input_param
-
-# Obtain current date time information
-now = datetime.now()
-year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
+import os
 
 """
 Send the email to personal's email for confirmation
@@ -17,7 +11,13 @@ Send the email to personal's email for confirmation
 """
 def send_exchange_mail(server, primary_smtp_address, username, password, recipients):
 
-    # Step 1: Configurate connection information
+    # Obtain current date time information
+    now = datetime.now()
+    year, month, day, hour, minute = now.year, now.month, now.day, now.hour, now.minute
+
+    # Generate Email
+
+    # Step 1: Configurate connection
     credentials = Credentials(username = primary_smtp_address, password = password)
     config = Configuration(server = server, credentials = credentials)
 
@@ -29,11 +29,30 @@ def send_exchange_mail(server, primary_smtp_address, username, password, recipie
     message = Message(
         account = account,
         folder = account.sent,  # set the sent folder to store a copy of the sent email
-        subject = f'Automation report for {month} {day}, {year}: {hour} - {minute}',
+        subject = f'Automation report for {month} {day}, {year}. Ending on {hour}:{minute}',
         body = 'Please refer to the attached documents for reporting maintenance and viewing the necessary information!',
         to_recipients = recipients  # List of recipients
     )
 
-    # Step 4: Send and save the message
+    # Step 4: Attach maintenance information .txt
+    info_path = f"../Output/MW_info_{year}-{month}-{day}.txt"
+    with open(info_path, 'rb') as f:
+        content = f.read()
+        attachment = FileAttachment(name = f"MW_info_{year}-{month}-{day}.txt", content = content)
+        message.attach(attachment)
+
+    # Step 4': Attach all vendor's email in .txt format files
+    vendor_email_path = f"../Output/Email_Dir_{year}-{month}-{day}"
+    for file_name in os.listdir(vendor_email_path):
+        if file_name.endswith('.txt'):  # Only attach .txt files
+            file_path = os.path.join(vendor_email_path, file_name)
+            with open(file_path, 'rb') as f:
+                content = f.read()
+                attachment = FileAttachment(name = file_name, content = content)
+                message.attach(attachment)
+
+
+    # Step 5: Send and save the message
+    print("=" * 50)
     message.send_and_save()
-    print("Email sent successfully!")
+    print("Email sent successfully with all .txt files attached!")

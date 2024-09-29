@@ -40,7 +40,6 @@ def write_textMail(Body, Subject):
         # Ensure the file has a .txt extension
         if not filename.endswith('.txt'):
             filename += '.txt'
-
         return filename
 
     # Create dir
